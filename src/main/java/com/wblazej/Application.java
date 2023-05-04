@@ -9,13 +9,31 @@ import io.activej.launchers.http.HttpServerLauncher;
 
 import static io.activej.http.HttpMethod.POST;
 
+import java.util.List;
+
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONException;
+import com.wblazej.models.ATM;
+import com.wblazej.services.ATMService;
+
+import io.activej.bytebuf.ByteBuf;
+
 public class Application extends HttpServerLauncher {
 
   @Provides
   AsyncServlet servlet() {
-    return RoutingServlet.create().map(POST, "/atm", request -> {
-      return HttpResponse.ok200().withHtml("hello, there!");
-    });
+    return RoutingServlet.create().map(POST, "/atm", request -> request.loadBody().map($ -> {
+      ByteBuf body = request.getBody();
+      byte[] bodyBytes = body.getArray();
+
+      try {
+        List<ATM> data = JSON.parseArray(bodyBytes, ATM.class);
+
+        return HttpResponse.ok200().withJson(JSON.toJSONString(ATMService.sort(data)));
+      } catch (JSONException e) {
+        return HttpResponse.ofCode(400);
+      }
+    }));
   }
 
   public static void main(String[] args) throws Exception {
