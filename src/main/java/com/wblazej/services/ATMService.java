@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.wblazej.models.ATM;
+import com.wblazej.models.atms.ATM;
 
 public class ATMService {
   public static List<ATM> sort(List<ATM> data) {

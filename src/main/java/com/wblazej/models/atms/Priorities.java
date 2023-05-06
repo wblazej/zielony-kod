@@ -1,4 +1,4 @@
-package com.wblazej.models;
+package com.wblazej.models.atms;
 
 public enum Priorities {
   STANDARD,

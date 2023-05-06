@@ -1,4 +1,4 @@
-package com.wblazej.models;
+package com.wblazej.models.atms;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 
