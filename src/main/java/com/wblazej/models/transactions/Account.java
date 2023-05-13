@@ -12,4 +12,8 @@ public class Account {
     this.creditCount = creditCount;
     this.balance = balance;
   }
+
+  public String getAccount() {
+    return this.account;
+  }
 }
