@@ -15,4 +15,11 @@ public class JSONParser {
 
     return JSON.parseArray(bodyBytes, clazz);
   }
+
+  public static <T> T parseObject(HttpRequest request, Class<T> clazz) throws JSONException, InterruptedException {
+		ByteBuf body = request.getBody();
+		byte[] bodyBytes = body.getArray();
+
+		return JSON.parseObject(bodyBytes, clazz);
+	}
 }

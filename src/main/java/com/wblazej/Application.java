@@ -9,6 +9,7 @@ import io.activej.launchers.http.HttpServerLauncher;
 import static io.activej.http.HttpMethod.POST;
 
 import com.wblazej.controllers.TransactionController;
+import com.wblazej.controllers.OnlineGameController;
 import com.wblazej.controllers.ATMController;
 
 public class Application extends HttpServerLauncher {
@@ -17,7 +18,8 @@ public class Application extends HttpServerLauncher {
   AsyncServlet servlet() {
     return RoutingServlet.create()
         .map(POST, "/atm", ATMController::handle)
-        .map(POST, "/transaction", TransactionController::handle);
+        .map(POST, "/transaction", TransactionController::handle)
+        .map(POST, "/onlinegame", OnlineGameController::handle);
   }
 
   public static void main(String[] args) throws Exception {
