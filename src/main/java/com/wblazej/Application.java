@@ -17,9 +17,9 @@ public class Application extends HttpServerLauncher {
   @Provides
   AsyncServlet servlet() {
     return RoutingServlet.create()
-        .map(POST, "/atm", ATMController::handle)
-        .map(POST, "/transaction", TransactionController::handle)
-        .map(POST, "/onlinegame", OnlineGameController::handle);
+        .map(POST, "/atms/calculateOrder", ATMController::handle)
+        .map(POST, "/transactions/report", TransactionController::handle)
+        .map(POST, "/onlinegame/calculate", OnlineGameController::handle);
   }
 
   public static void main(String[] args) throws Exception {
