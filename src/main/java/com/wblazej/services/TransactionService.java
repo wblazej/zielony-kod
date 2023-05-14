@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.wblazej.models.transactions.Account;
 import com.wblazej.models.transactions.Transaction;
@@ -44,6 +43,6 @@ public class TransactionService {
     return accounts.values()
         .stream()
         .sorted(Comparator.comparing(Account::getAccount))
-        .collect(Collectors.toList());
+        .toList();
   }
 }

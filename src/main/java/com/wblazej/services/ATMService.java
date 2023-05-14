@@ -4,7 +4,6 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.wblazej.models.atms.ATM;
 
@@ -26,6 +25,6 @@ public class ATMService {
         .sorted(
             Comparator.comparing(ATM::getRegion)
                 .thenComparing(ATM::getPriority, Comparator.reverseOrder()))
-        .collect(Collectors.toList());
+        .toList();
   }
 }
