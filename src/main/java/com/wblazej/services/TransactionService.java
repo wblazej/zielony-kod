@@ -17,6 +17,7 @@ public class TransactionService {
         Account acc = accounts.get(transaction.debitAccount);
         acc.debitCount += 1;
         acc.balance -= transaction.amount;
+        acc.balance = Math.round(acc.balance * 100) / 100.0;
       } else {
         Account acc = new Account(
             transaction.debitAccount,
@@ -30,6 +31,7 @@ public class TransactionService {
         Account acc = accounts.get(transaction.creditAccount);
         acc.creditCount += 1;
         acc.balance += transaction.amount;
+        acc.balance = Math.round(acc.balance * 100) / 100.0;
       } else {
         Account acc = new Account(
             transaction.creditAccount,
