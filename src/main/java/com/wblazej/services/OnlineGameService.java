@@ -11,14 +11,14 @@ import com.wblazej.models.onlinegame.Request;
 public class OnlineGameService {
   public static List<List<Clan>> process_queue(Request data) {
     List<Clan> clans = data.clans.stream().sorted(
-        Comparator.comparing(Clan::getPoints)
-            .thenComparing(Clan::getNumberOfPlayers, Comparator.reverseOrder()))
+        Comparator.comparing(Clan::getPoints, Comparator.reverseOrder())
+            .thenComparing(Clan::getNumberOfPlayers))
         .toList();
 
-    int groups_count = (int) Math
-        .ceil(clans.stream().map(Clan::getNumberOfPlayers).reduce(0, Integer::sum) / data.groupCount);
+    int player_count = clans.stream().map(Clan::getNumberOfPlayers).reduce(0, Integer::sum);
+    int groups_count = (int) Math.ceil((double) player_count / data.groupCount);
 
-    List<ArrayList<Clan>> groups = Stream.generate(() -> new ArrayList<Clan>()).limit(groups_count).toList();
+    List<List<Clan>> groups = Stream.generate(() -> (List<Clan>) new ArrayList<Clan>()).limit(groups_count).toList();
     int[] sums = new int[groups_count];
 
     clans.forEach(clan -> {
@@ -33,7 +33,6 @@ public class OnlineGameService {
       }
     });
 
-    return groups.stream()
-        .map(group -> group.stream().sorted(Comparator.comparing(Clan::getPoints).reversed()).toList()).toList();
+    return groups;
   }
 }
