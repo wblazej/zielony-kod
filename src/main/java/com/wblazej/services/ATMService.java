@@ -25,7 +25,7 @@ public class ATMService {
     return atm_map.values().stream()
         .sorted(
             Comparator.comparing(ATM::getRegion)
-                .thenComparing(ATM::getPriority))
+                .thenComparing(ATM::getPriority, Comparator.reverseOrder()))
         .collect(Collectors.toList());
   }
 }
