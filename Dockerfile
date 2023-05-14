@@ -1,7 +1,18 @@
-FROM openjdk:8-jre-alpine
-WORKDIR /app
-COPY target/ZielonyKod.jar ./
-EXPOSE 8080
-ENTRYPOINT java $SYS_PROPS -jar ZielonyKod.jar
+FROM maven:3.6.3-openjdk-17-slim as builder
+LABEL maintainer="Błażej Wrzosok <blazej.wrzosok@gmail.com>"
 
-# Note : run it with `docker build -t <your_image_name> -f src/docker/Dockerfile .`
+WORKDIR /app
+
+COPY . .
+
+RUN /app/build.sh
+
+# -- 
+
+FROM openjdk:17-alpine as runtime
+WORKDIR /app
+
+COPY --from=builder /app/target/ZielonyKod-1.0.0-jar-with-dependencies.jar .
+
+EXPOSE 8080
+ENTRYPOINT java $SYS_PROPS -jar ZielonyKod-1.0.0-jar-with-dependencies.jar
